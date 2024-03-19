@@ -1,3 +1,0 @@
-[submodule "litgpt"]
-	path = litgpt
-	url = git@github.com:Lightning-AI/litgpt.git
