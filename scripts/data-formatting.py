@@ -10,8 +10,8 @@ for file_path in files:
         for line in file:
             example = json.loads(line)  # Parse each line as JSON
             new_example = {
-                "instruction": "Based off this context, output whether the question entailment or non-entailment",
-                "input": f"Conxtext: {example['puzzle_text']}, Question: {example['question']}",
+                "instruction": "Based off this context, output whether the question implies entailment or non-entailment",
+                "input": f"Conetext: {example['puzzle_text']}, Question: {example['question']}",
                 "output": example["answer"]+'\n',
             }
             litgpt_format_data.append(new_example)
