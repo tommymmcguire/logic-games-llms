@@ -16,23 +16,20 @@ def parse_base_eval(file_path: str):
             index = row[0]
             response = row[2]
             # Unsure
-            if "entailment" in response and "non-entailment" in response:
+            if " entail" in response and "non-entail" in response:
                 parsed_data["unsure"].append(index)
-            # Entailment
-            elif "entailment" in response:
-                parsed_data["entailment"].append(index)
             # Non-entailment
-            elif "non-entailment" in response:
+            elif "non-entail" in response:
                 parsed_data["non-entailment"].append(index)
+            # Entailment
+            elif "entail" in response:
+                parsed_data["entailment"].append(index)
             # Off-topic
             else:
                 parsed_data["off-topic"].append(index)
     # Write to JSON
     with open("../data/parsed_base_eval_responses.json", "w") as f:
         json.dump(parsed_data, f, indent=4)
-            
-    
-
 
 
 if __name__ == "__main__":
