@@ -1,8 +1,8 @@
 {
-    "total_accuracy": 0.3385263157894737,
+    "total_accuracy": 0.42800000000000005,
     "entailment_accuracy": 0.2631578947368421,
     "non-entailment_accuracy": 0.513677811550152,
-    "unsure_total": 99,
+    "unsure_total": 97,
     "off-topic_total": 50,
     "total_entailment_in_target": 171,
     "total_non-entailment_in_target": 329,
