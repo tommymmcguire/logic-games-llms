@@ -88,10 +88,10 @@ def compute_eval_metrics(target_path: str, model_output_path: str):
 
 if __name__ == "__main__":
     target_path = "../data/sft-data/test.json"
-    model_output_path = "../data/results/parsed_base_eval_responses.json"
+    model_output_path = "../data/results/parsed_finetuned_eval_responses.json"
     eval_metrics = compute_eval_metrics(target_path, model_output_path)
     # Write to JSON
-    with open("../data/results/base_eval_metrics.json", "w") as f:
+    with open("../data/results/finetuned_eval_metrics.json", "w") as f:
         json.dump(eval_metrics, f, indent=4)
     for key, value in eval_metrics.items():
         print(f"{key}: {value}")
