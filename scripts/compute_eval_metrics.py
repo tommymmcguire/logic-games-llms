@@ -33,6 +33,10 @@ def compute_eval_metrics(target_path: str, model_output_path: str):
             elif "entailment" in label:
                 ground_truth["entailment"].append(i)
 
+    # Ensure all model predictions are capped at 500
+    for key in model_output:
+        model_output[key] = [i for i in model_output[key] if int(i) <= 500]
+
     # Find the eval metrics
     for key in model_output:
         if key == "entailment":
@@ -43,7 +47,7 @@ def compute_eval_metrics(target_path: str, model_output_path: str):
             eval_metrics["total_entailment_in_target"] = total_in_target
             eval_metrics["total_entailment_in_output"] = total_in_output
             eval_metrics["entailment_accuracy"] = correct/total_in_target
-            eval_metrics["total_accuracy"] = (correct + eval_metrics["non-entailment_accuracy"])/500
+            eval_metrics["total_accuracy"] = eval_metrics["total_accuracy"] + (correct / 500)
             # Find the output_entail_when_non-entail
             total_output_entail_when_non_entail = set([int(i) for i in model_output[key]]).intersection(set(ground_truth["non-entailment"]))
             eval_metrics["output_entail_when_non-entail"] = len(total_output_entail_when_non_entail)
@@ -56,7 +60,7 @@ def compute_eval_metrics(target_path: str, model_output_path: str):
             eval_metrics["total_non-entailment_in_target"] = total_in_target
             eval_metrics["total_non-entailment_in_output"] = total_in_output
             eval_metrics["non-entailment_accuracy"] = correct/total_in_target
-            eval_metrics["total_accuracy"] = (correct + eval_metrics["entailment_accuracy"])/500
+            eval_metrics["total_accuracy"] = eval_metrics["total_accuracy"] + (correct / 500)
             # Find the output_non-entail_when_entail
             total_output_non_entail_when_entail = set([int(i) for i in model_output[key]]).intersection(set(ground_truth["entailment"]))
             eval_metrics["output_non-entail_when_entail"] = len(total_output_non_entail_when_entail)
@@ -84,10 +88,10 @@ def compute_eval_metrics(target_path: str, model_output_path: str):
 
 if __name__ == "__main__":
     target_path = "../data/sft-data/test.json"
-    model_output_path = "../data/parsed_base_eval_responses.json"
+    model_output_path = "../data/results/parsed_base_eval_responses.json"
     eval_metrics = compute_eval_metrics(target_path, model_output_path)
     # Write to JSON
-    with open("../data/base_eval_metrics.json", "w") as f:
+    with open("../data/results/base_eval_metrics.json", "w") as f:
         json.dump(eval_metrics, f, indent=4)
     for key, value in eval_metrics.items():
         print(f"{key}: {value}")

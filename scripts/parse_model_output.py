@@ -1,7 +1,7 @@
 import csv
 import json
 
-def parse_base_eval(file_path: str):
+def parse_model_output_csv(file_path: str, output_path: str):
     """
     Parse the unstructured output from the base 7B model evaluation.
     Determine if the model output etailment, non-entailment, unsure, or off topic.
@@ -14,7 +14,7 @@ def parse_base_eval(file_path: str):
     for row in data:
         if row:
             index = row[0]
-            response = row[2]
+            response = row[2].lower()
             # Unsure
             if " entail" in response and "non-entail" in response:
                 parsed_data["unsure"].append(index)
@@ -28,10 +28,11 @@ def parse_base_eval(file_path: str):
             else:
                 parsed_data["off-topic"].append(index)
     # Write to JSON
-    with open("../data/parsed_base_eval_responses.json", "w") as f:
+    with open(output_path, "w") as f:
         json.dump(parsed_data, f, indent=4)
 
 
 if __name__ == "__main__":
-    file_path = "../data/base_eval_responses.csv"
-    parse_base_eval(file_path)
+    file_path = "../data/results/gpt3turbo-predictions.csv"
+    output_path = "../data/results/parsed_gpt_eval_responses.json"
+    parse_model_output_csv(file_path, output_path)
