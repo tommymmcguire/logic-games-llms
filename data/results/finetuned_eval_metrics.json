@@ -1,0 +1,17 @@
+{
+    "total_accuracy": 0.638,
+    "entailment_accuracy": 0.7777777777777778,
+    "non-entailment_accuracy": 0.5653495440729484,
+    "unsure_total": 0,
+    "off-topic_total": 0,
+    "total_entailment_in_target": 171,
+    "total_non-entailment_in_target": 329,
+    "total_entailment_in_output": 277,
+    "total_non-entailment_in_output": 224,
+    "output_entail_when_non-entail": 143,
+    "output_non-entail_when_entail": 38,
+    "output_unsure_when_entail": 0,
+    "output_unsure_when_non-entail": 0,
+    "output_off-topic_when_entail": 0,
+    "output_off-topic_when_non-entail": 0
+}
